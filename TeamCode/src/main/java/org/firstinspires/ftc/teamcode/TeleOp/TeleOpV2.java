@@ -33,15 +33,15 @@ public class TeleOpV2 extends CommandOpMode {
             diffy.toggleClaw();
         }
 
-        if (gamepad2.dpad_up) {
+        if (gamepad2.dpad_left) {
             diffy.angleDiffyManual(-1);
-        } else if (gamepad2.dpad_down) {
+        } else if (gamepad2.dpad_right) {
             diffy.angleDiffyManual(1);
         }
 
-        if (gamepad2.dpad_left) {
+        if (gamepad2.dpad_up) {
             diffy.rotateDiffyManual(-1);
-        } else if (gamepad2.dpad_right) {
+        } else if (gamepad2.dpad_down) {
             diffy.rotateDiffyManual(1);
         }
 

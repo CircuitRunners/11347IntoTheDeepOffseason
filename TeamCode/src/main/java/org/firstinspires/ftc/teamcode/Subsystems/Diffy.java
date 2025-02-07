@@ -14,9 +14,9 @@ public class Diffy {
 
     }
 
-    public void angleDiffyManual(double direction) {
-        leftRotateServo.setPosition(leftRotateServo.getPosition()+.1*direction);
-        rightRotateServo.setPosition(rightRotateServo.getPosition()+.1*direction);
+    public void angleDiffyManual(double direction) {//should actually rotate
+        leftRotateServo.setPosition(leftRotateServo.getPosition()+.005*direction);
+        rightRotateServo.setPosition(rightRotateServo.getPosition()+.005*direction);
 
     }
 
@@ -25,9 +25,9 @@ public class Diffy {
         rightRotateServo.setPosition(position);
     }
 
-    public void rotateDiffyManual(double direction) {
-        leftRotateServo.setPosition(leftRotateServo.getPosition()+.1*direction);
-        rightRotateServo.setPosition(rightRotateServo.getPosition()-.1*direction);
+    public void rotateDiffyManual(double direction) {//should actually angle
+        leftRotateServo.setPosition(leftRotateServo.getPosition()+.005*direction);
+        rightRotateServo.setPosition(rightRotateServo.getPosition()-.005*direction);
 
     }
 

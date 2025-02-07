@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleOp;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -21,14 +21,14 @@ public class sigma extends CommandOpMode {
     IMU.Parameters imup;
 
     @Override
-    public void init() {
-        leftFront = hardwareMap.get (DcMotorEx.class, "FLM");
-        rightFront = hardwareMap.get (DcMotorEx.class, "FRM");
-        leftBack = hardwareMap.get (DcMotorEx.class, "BLM");
-        rightBack = hardwareMap.get (DcMotorEx.class, "BRM");
-        g1 = gamepad1
-        FLM.setDirection(DcMotorSimple.Direction.REVERSE);
-        BLM.setDirection(DcMotorSimple.Direction.REVERSE);
+    public void initialize() {
+        leftFront = hardwareMap.get (DcMotorEx.class, "fl");
+        rightFront = hardwareMap.get (DcMotorEx.class, "fr");
+        leftBack = hardwareMap.get (DcMotorEx.class, "bl");
+        rightBack = hardwareMap.get (DcMotorEx.class, "br");
+        g1 = gamepad1;
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -62,10 +62,10 @@ public class sigma extends CommandOpMode {
         double blp = (rotY - rotX + rx) / denominator;
         double brp = (rotY + rotX - rx) / denominator;
 
-        FLM.setPower(flp);
-        FRM.setPower(frp);
-        BLM.setPower(blp);
-        BRM.setPower(brp);
+        leftFront.setPower(flp);
+        rightFront.setPower(frp);
+        leftBack.setPower(blp);
+        rightBack.setPower(brp);
 
 
     }
