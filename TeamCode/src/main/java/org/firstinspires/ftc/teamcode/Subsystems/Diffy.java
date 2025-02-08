@@ -3,14 +3,17 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Diffy {
     private Servo leftRotateServo, rightRotateServo, clawServo;
+    private final ElapsedTime switchTimer = new ElapsedTime();
 
     public Diffy(HardwareMap hardwaremap) {
         leftRotateServo = hardwaremap.get(Servo.class, "Left Diffy Servo");
         rightRotateServo = hardwaremap.get(Servo.class, "Right Diffy Servo");
         clawServo = hardwaremap.get(Servo.class, "Claw Servo");
+        switchTimer.reset();
 
     }
 
@@ -45,10 +48,12 @@ public class Diffy {
     }
 
     public void toggleClaw() {
-        if (clawServo.getPosition()>.095) {
-            openClaw();
-        } else {
-            closeClaw();
+        if (switchTimer.milliseconds() > 500) {
+            if (clawServo.getPosition() > .095) {
+                openClaw();
+            } else {
+                closeClaw();
+            }
         }
     }
 }

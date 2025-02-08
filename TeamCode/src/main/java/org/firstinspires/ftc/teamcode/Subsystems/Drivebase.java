@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Drivebase extends SubsystemBase {
     private DcMotorEx leftFront, leftBack, rightFront, rightBack;
+    private double powerMultiplier = .8;
     //Need IMU
     public Drivebase(HardwareMap hardwareMap) {
         leftFront = hardwareMap.get(DcMotorEx.class,"leftFront");
@@ -59,10 +60,10 @@ public class Drivebase extends SubsystemBase {
         // double denominator = max(abs(y) + abs(x) + abs(rx), 1);
 
         // Set the motor powers
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
+        leftFront.setPower(frontLeftPower*powerMultiplier);
+        leftBack.setPower(backLeftPower*powerMultiplier);
+        rightFront.setPower(frontRightPower*powerMultiplier);
+        rightBack.setPower(backRightPower*powerMultiplier);
     }
 
 }

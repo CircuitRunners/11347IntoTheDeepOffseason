@@ -20,6 +20,7 @@ public class Arm {
     }
 
     public void manualRotate(double power) {
+
         rotate1.setPower(power*rotateMultiplier);
         rotate2.setPower(power*rotateMultiplier);
     }
