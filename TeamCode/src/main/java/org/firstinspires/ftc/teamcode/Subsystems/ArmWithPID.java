@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import static org.firstinspires.ftc.teamcode.constants.ArmPIDConstants.*;
+import static org.firstinspires.ftc.teamcode.constants.Constants.*;
 
 public class ArmWithPID {
     private DcMotorEx rotate1, rotate2, extend1, extend2;

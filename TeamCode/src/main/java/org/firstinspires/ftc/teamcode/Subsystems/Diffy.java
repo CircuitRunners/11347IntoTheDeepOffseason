@@ -10,7 +10,7 @@ public class Diffy {
     private boolean isClawOpen;
 
     public enum ServoPosition {
-        UP(0,0),
+        UP(0,0),//Need values
         DOWN(0,0),
         CENTER(0,0);
         private double leftServoPosition, rightServoPosition;
