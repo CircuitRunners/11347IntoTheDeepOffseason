@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmWithPID;
 import org.firstinspires.ftc.teamcode.Subsystems.Diffy;
@@ -14,8 +17,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.RollerIntake;
 public class ArmTester extends CommandOpMode {
     public ArmWithPID arm;
     //public RollerIntake intake;
-    public int rotateTarget;
-    public int extendTarget;
+    public static int rotateTarget;
+    public static int extendTarget;
+    //public Telemetry telemetry;
 
     @Override
     public void initialize() {
@@ -23,20 +27,22 @@ public class ArmTester extends CommandOpMode {
         arm = new ArmWithPID(hardwareMap);
         //intake = new RollerIntake(hardwareMap);
 
-        telemetry.addLine("Initialized");
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.update();
     }
 
     @Override
     public void run() {
         super.run();
-        arm.setRotateTarget(rotateTarget);
+        //arm.setRotateTarget(rotateTarget);
         arm.setExtensionTarget(extendTarget);
         arm.update();
 
 
-        telemetry.addLine("Arm Rotation: " + arm.getRotationPosition());
-        telemetry.addLine("Arm Extension: " + arm.getExtensionPosition());
+        telemetry.addData("Arm Rotation", arm.getRotationPosition());
+        telemetry.addData("Rotation Target", rotateTarget);
+        telemetry.addData("Arm Extension", arm.getExtensionPosition());
+        telemetry.update();
 
     }
 }
