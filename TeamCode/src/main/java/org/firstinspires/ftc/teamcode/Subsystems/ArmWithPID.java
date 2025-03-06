@@ -24,9 +24,10 @@ public class ArmWithPID {
     public int rotationTarget = 0;
     private int extensionTarget = 0;
     public static int maxRotation = 9400;
-    public static int minRotation = 0;
+    public static int minRotation = -100;
     public static int maxExtension = -61000;
     public static int minExtension = 1000;
+    public static boolean usef = true;
 
 
     public ArmWithPID(HardwareMap hardwaremap) {
@@ -64,8 +65,15 @@ public class ArmWithPID {
         double extPID = extensionPIDController.calculate(extPos, extensionTarget);
 
         //maybe no tick in degrees
-        double rotff = Math.cos(Math.toRadians(rotationTarget/ rot_ticks_in_degree)) *rotf;
-        double extff = Math.cos(Math.toRadians(extensionTarget / ext_ticks_in_degree)) * extf;
+        double rotff;
+        double extff;
+        if (usef) {
+            rotff = Math.cos(Math.toRadians(rotationTarget / rot_ticks_in_degree)) * rotf;
+            extff = Math.cos(Math.toRadians(extensionTarget / ext_ticks_in_degree)) * extf;
+        } else {
+            rotff = 0;
+            extff = 0;
+        }
 
         double rotPower = Range.clip(rotPID+rotff, -1, 1);
         double extPower = Range.clip(extPID+extff, -1,1);
@@ -86,11 +94,11 @@ public class ArmWithPID {
     }
 
     public void manualRotate(double power) {
-        setRotateTarget(getRotationPosition()+(int) power*5);
+        setRotateTarget(rotationTarget+(int) (power*75));
     }
 
     public void manualExtend(double power) {
-        setExtensionTarget(getExtensionPosition()+(int) power*50);
+        setExtensionTarget(extensionTarget+(int) (power*50));
     }
 
 
@@ -110,4 +118,11 @@ public class ArmWithPID {
     public int getExtensionPosition() {
         return extend2.getCurrentPosition();
     }
+    public int getRotationTarget() {
+        return rotationTarget;
+    }
+    public int getExtensionTarget() {
+        return extensionTarget;
+    }
+
 }

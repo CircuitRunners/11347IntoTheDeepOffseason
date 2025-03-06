@@ -19,6 +19,8 @@ public class ArmTester extends CommandOpMode {
     //public RollerIntake intake;
     public static int rotateTarget;
     public static int extendTarget;
+    public static boolean shouldRotate = true;
+    public static boolean shouldExtend = true;
     //public Telemetry telemetry;
 
     @Override
@@ -34,14 +36,20 @@ public class ArmTester extends CommandOpMode {
     @Override
     public void run() {
         super.run();
-        //arm.setRotateTarget(rotateTarget);
-        arm.setExtensionTarget(extendTarget);
+        if (shouldRotate) {
+            arm.setRotateTarget(rotateTarget);
+        }
+        if (shouldExtend) {
+            arm.setExtensionTarget(extendTarget);
+        }
         arm.update();
 
 
         telemetry.addData("Arm Rotation", arm.getRotationPosition());
         telemetry.addData("Rotation Target", rotateTarget);
         telemetry.addData("Arm Extension", arm.getExtensionPosition());
+        telemetry.addData("Extension Target", extendTarget);
+
         telemetry.update();
 
     }
