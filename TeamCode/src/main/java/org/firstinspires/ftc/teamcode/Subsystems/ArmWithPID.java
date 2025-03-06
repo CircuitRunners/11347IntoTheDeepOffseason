@@ -16,8 +16,8 @@ import static org.firstinspires.ftc.teamcode.constants.Constants.*;
 public class ArmWithPID {
     private DcMotorEx rotate1, rotate2, extend1, extend2;
 
-    public static double rotp = .0015, roti = ROTI, rotd = .0001, rotf = -.15;
-    public static double extp = EXTP, exti = EXTI, extd = EXTD, extf = EXTF;
+    public static double rotp = .0015, roti = 0, rotd = .0001, rotf = -.15;
+    public static double extp = 0, exti = 0, extd = 0, extf = 0;
     //public Telemetry telemetry;
     private PIDController rotatePIDController, extensionPIDController;
 
@@ -65,7 +65,7 @@ public class ArmWithPID {
 
         //maybe no tick in degrees
         double rotff = Math.cos(Math.toRadians(rotationTarget/ rot_ticks_in_degree)) *rotf;
-        double extff = Math.sin(Math.toRadians(extensionTarget / ext_ticks_in_degree)) * extf;
+        double extff = Math.cos(Math.toRadians(extensionTarget / ext_ticks_in_degree)) * extf;
 
         double rotPower = Range.clip(rotPID+rotff, -1, 1);
         double extPower = Range.clip(extPID+extff, -1,1);

@@ -30,9 +30,9 @@ public class TeleOpV2 extends CommandOpMode {
     public void run() {
         super.run();
         drivebase.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
-        arm.setRotatePower(gamepad2.right_stick_y);
-        arm.setExtendPower(gamepad2.left_stick_y);
-        //arm.update();
+        arm.manualRotate(gamepad2.right_stick_y);
+        arm.manualExtend(gamepad2.left_stick_y);
+        arm.update();
         if (gamepad2.right_bumper || gamepad2.left_bumper) {
             diffy.toggleClaw();
         }
