@@ -36,8 +36,8 @@ public class FieldCentricTeleOp extends CommandOpMode {
             drivebase.resetIMU();
         }
 
-        arm.setRotatePower(gamepad2.right_stick_y);
-        arm.setExtendPower(gamepad2.left_stick_y);
+        arm.manualRotate(gamepad2.right_stick_y);
+        arm.manualExtend(gamepad2.left_stick_y);
         arm.update();
 
         if (gamepad2.right_bumper || gamepad2.left_bumper) {

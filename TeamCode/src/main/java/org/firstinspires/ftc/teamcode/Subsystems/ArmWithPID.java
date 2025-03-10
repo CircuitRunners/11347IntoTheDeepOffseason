@@ -25,9 +25,11 @@ public class ArmWithPID {
     private int extensionTarget = 0;
     public static int maxRotation = 9400;
     public static int minRotation = -100;
-    public static int maxExtension = -61000;
-    public static int minExtension = 1000;
+    public static int maxExtension = -64900;
+    public static int minExtension = -2900;
     public static boolean usef = true;
+    public static boolean useRotation = true;
+    public static boolean useExtension = true;
 
 
     public ArmWithPID(HardwareMap hardwaremap) {
@@ -81,8 +83,12 @@ public class ArmWithPID {
 //        telemetry.update();
 //        telemetry.addData("Power: ", rotPower);
 //        telemetry.update();
-        setRotatePower(-rotPower);
-        setExtendPower(extPower);
+        if (useRotation) {
+            setRotatePower(-rotPower);
+        }
+        if (useExtension) {
+            setExtendPower(extPower);
+        }
     }
 
     public void setRotateTarget(int target) {
@@ -90,7 +96,7 @@ public class ArmWithPID {
     }
 
     public void setExtensionTarget(int target) {
-        extensionTarget = Range.clip(target,minExtension,maxExtension);
+        extensionTarget = Range.clip(target,maxExtension,minExtension);
     }
 
     public void manualRotate(double power) {
