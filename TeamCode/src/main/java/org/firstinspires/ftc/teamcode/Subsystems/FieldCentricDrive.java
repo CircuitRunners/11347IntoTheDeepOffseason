@@ -43,8 +43,8 @@ public class FieldCentricDrive extends SubsystemBase {
         Pose2D pos = odo.getPosition();
         double botHeading = pos.getHeading(AngleUnit.RADIANS);
 
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+        double rotX = x * Math.cos(-botHeading) + y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
 
         rotY = -rotY;

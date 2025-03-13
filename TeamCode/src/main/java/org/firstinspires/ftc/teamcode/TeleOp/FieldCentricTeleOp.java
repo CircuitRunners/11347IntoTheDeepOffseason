@@ -61,6 +61,7 @@ public class FieldCentricTeleOp extends CommandOpMode {
         telemetry.addLine("Is Claw Open? " + diffy.isClawOpen());
         telemetry.addLine("Left Diffy Servo Position: " + diffy.leftServoPosition());
         telemetry.addLine("Right Diffy Servo Position: " + diffy.rightServoPosition());
+        telemetry.update();
 
     }
 }
