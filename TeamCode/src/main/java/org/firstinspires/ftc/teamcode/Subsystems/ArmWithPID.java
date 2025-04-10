@@ -16,20 +16,37 @@ import static org.firstinspires.ftc.teamcode.constants.Constants.*;
 public class ArmWithPID {
     private DcMotorEx rotate1, rotate2, extend1, extend2;
 
-    public static double rotp = .0015, roti = 0, rotd = .0001, rotf = -.15;
-    public static double extp = 0, exti = 0, extd = 0, extf = 0;
+    public static double rotp = .0017, roti = 0, rotd = 0.00007, rotf = -.10;
+    public static double extp = 0.001, exti = 0, extd = 0.00001, extf = 0;
+    public static double manp = .0007, mani = 0, mand = 0.00007, manf = -.10;
+
+    public enum Rotations {
+        REST(200),
+        SUB(1700),
+        SUBGRAB(1300),
+        WALL(1850),
+        BAR(4400),
+        TEST(5000);
+        public int position;
+        Rotations(int position) {this.position = position;}
+
+        public int getPosition() {return this.position;}
+    }
     //public Telemetry telemetry;
-    private PIDController rotatePIDController, extensionPIDController;
+    private PIDController rotatePIDController, extensionPIDController, manualPIDController;
 
     public int rotationTarget = 0;
     private int extensionTarget = 0;
     public static int maxRotation = 9400;
     public static int minRotation = -100;
-    public static int maxExtension = -64900;
-    public static int minExtension = -2900;
+    public static int maxExtension = -58300;
+    public static int minExtension = 3650;
     public static boolean usef = true;
     public static boolean useRotation = true;
     public static boolean useExtension = true;
+    public boolean manual = false;
+
+
 
 
     public ArmWithPID(HardwareMap hardwaremap) {
@@ -39,6 +56,7 @@ public class ArmWithPID {
         extend2 = hardwaremap.get(DcMotorEx.class, "Arm Extend 2");
         rotatePIDController = new PIDController(rotp, roti, rotd);
         extensionPIDController = new PIDController(extp, exti, extd);
+        manualPIDController = new PIDController(manp, mani, mand);
         //telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
 //        rotationTarget = getRotationPosition();
@@ -53,17 +71,24 @@ public class ArmWithPID {
 
         rotate1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         rotate2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        setExtensionTarget(getExtensionPosition());
+        setRotateTarget(getRotationPosition());
 
     }
 
     public void update() {
         rotatePIDController.setPID(rotp, roti, rotd);
         extensionPIDController.setPID(extp, exti, extd);
+        manualPIDController.setPID(manp,mani,mand);
 
         double rotPos = rotate2.getCurrentPosition();
         double extPos = getExtensionPosition();
-
-        double rotPID = rotatePIDController.calculate(rotPos, rotationTarget);
+        double rotPID;
+        if (manual) {
+            rotPID = manualPIDController.calculate(rotPos, rotationTarget);
+        } else {
+            rotPID = rotatePIDController.calculate(rotPos, rotationTarget);
+        }
         double extPID = extensionPIDController.calculate(extPos, extensionTarget);
 
         //maybe no tick in degrees
@@ -90,21 +115,65 @@ public class ArmWithPID {
             setExtendPower(extPower);
         }
     }
-
+    public boolean reachRotateTarget() {
+        return Math.abs(rotate2.getVelocity()) <=100;
+    }
     public void setRotateTarget(int target) {
         rotationTarget = Range.clip(target,minRotation, maxRotation);
+    }
+
+    public void rotateRest() {
+        manual = false;
+        rotationTarget = Rotations.REST.getPosition();
+    }
+    public void rotateTest() {
+        manual = false;
+        rotationTarget = Rotations.TEST.getPosition();
+    }
+    public void rotateSub() {
+        manual = false;
+        rotationTarget = Rotations.SUB.getPosition();
+    }
+    public void rotateGrabSub() {
+        manual = false;
+        rotationTarget = Rotations.SUBGRAB.getPosition();
+    }
+
+    public void rotateWall() {
+        manual = false;
+        rotationTarget = Rotations.WALL.getPosition();
+    }
+    public void rotateBar() {
+        manual = false;
+        rotationTarget = Rotations.BAR.getPosition();
+    }
+
+    public void rotateFull() {
+        manual = false;
+        rotationTarget = maxRotation;
     }
 
     public void setExtensionTarget(int target) {
         extensionTarget = Range.clip(target,maxExtension,minExtension);
     }
 
+    public void fullExtend() {
+        extensionTarget = maxExtension+100;
+    }
+
+    public void fullRetract() {
+        extensionTarget = minExtension-100;
+    }
+
     public void manualRotate(double power) {
-        setRotateTarget(rotationTarget+(int) (power*75));
+        if (power > .3) {
+            manual = true;
+        }
+        setRotateTarget(rotationTarget+(int) (power*300));
     }
 
     public void manualExtend(double power) {
-        setExtensionTarget(extensionTarget+(int) (power*50));
+        setExtensionTarget(extensionTarget+(int) (power*1000));
     }
 
 
@@ -130,5 +199,8 @@ public class ArmWithPID {
     public int getExtensionTarget() {
         return extensionTarget;
     }
+
+    public double getRotationVelocity() {return rotate2.getVelocity();}
+    public boolean isRetracted() {return getExtensionPosition()>=500;}
 
 }

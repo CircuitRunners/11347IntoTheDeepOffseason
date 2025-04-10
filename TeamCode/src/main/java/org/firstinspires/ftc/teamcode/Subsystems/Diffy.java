@@ -1,18 +1,21 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+@Config
 public class Diffy {
     private Servo leftRotateServo, rightRotateServo, clawServo;
     private boolean isClawOpen;
+    public static double rightSlow = .68;
+    public static double manualSpeed = 0.02;
 
     public enum ServoPosition {
-        UP(0,0),//Need values
-        DOWN(0,0),
-        CENTER(0,0);
+        UP(1,.5),//Need values
+        DOWN(0,1),
+        CENTER(.65,.65);
         private double leftServoPosition, rightServoPosition;
 
         ServoPosition(double leftServoPosition, double rightServoPosition) {
@@ -20,7 +23,7 @@ public class Diffy {
             this.rightServoPosition = rightServoPosition;
         }
     }
-    private final ElapsedTime switchTimer = new ElapsedTime();
+    public final ElapsedTime switchTimer = new ElapsedTime();
 
     public Diffy(HardwareMap hardwaremap) {
         leftRotateServo = hardwaremap.get(Servo.class, "Left Diffy Servo");
@@ -32,8 +35,8 @@ public class Diffy {
     }
 
     public void angleDiffyManual(double direction) {//should actually rotate
-        leftRotateServo.setPosition(leftRotateServo.getPosition()+.005*direction);
-        rightRotateServo.setPosition(rightRotateServo.getPosition()+.005*direction);
+        leftRotateServo.setPosition(leftRotateServo.getPosition()+manualSpeed*direction);
+        rightRotateServo.setPosition(rightRotateServo.getPosition()+manualSpeed*direction*rightSlow);
 
     }
 
@@ -41,13 +44,25 @@ public class Diffy {
         leftRotateServo.setPosition(position);
         rightRotateServo.setPosition(position);
     }
+    public void setRightDiffyPosition(double position) {
+        rightRotateServo.setPosition(position);
+    }
+    public void setLeftDiffyPosition(double position) {
+        leftRotateServo.setPosition(position);
+    }
 
     public void rotateDiffyManual(double direction) {//should actually angle
-        leftRotateServo.setPosition(leftRotateServo.getPosition()+.005*direction);
-        rightRotateServo.setPosition(rightRotateServo.getPosition()-.005*direction);
+        leftRotateServo.setPosition(leftRotateServo.getPosition()+manualSpeed*direction);
+        rightRotateServo.setPosition(rightRotateServo.getPosition()-manualSpeed*direction*rightSlow);
 
     }
 
+    public void moveRightServo(double direction) {
+        rightRotateServo.setPosition(rightRotateServo.getPosition()+manualSpeed*direction*rightSlow);
+    }
+    public void moveleftServo(double direction) {
+        leftRotateServo.setPosition(leftRotateServo.getPosition()+manualSpeed*direction);
+    }
     public void rotateDiffyUp() {
         leftRotateServo.setPosition(ServoPosition.UP.leftServoPosition);
         rightRotateServo.setPosition(ServoPosition.UP.rightServoPosition);
@@ -83,8 +98,8 @@ public class Diffy {
             } else {
                 closeClaw();
             }
+            switchTimer.reset();
         }
-        switchTimer.reset();
     }
 
     public boolean isClawOpen() {

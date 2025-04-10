@@ -23,6 +23,7 @@ public class ArmTester extends CommandOpMode {
 //    public static boolean shouldExtend = true;
     public static boolean shouldUpdate = true;
     //public Telemetry telemetry;
+    public static int pastPosition = 0;
 
     @Override
     public void initialize() {
@@ -32,10 +33,12 @@ public class ArmTester extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.update();
+        pastPosition = arm.getRotationPosition();
     }
 
     @Override
     public void run() {
+        pastPosition = arm.getRotationPosition();
         super.run();
             arm.setRotateTarget(rotateTarget);
             arm.setExtensionTarget(extendTarget);
@@ -48,7 +51,7 @@ public class ArmTester extends CommandOpMode {
         telemetry.addData("Rotation Target", rotateTarget);
         telemetry.addData("Arm Extension", arm.getExtensionPosition());
         telemetry.addData("Extension Target", extendTarget);
-
+        telemetry.addData("Rotation position difference", arm.getRotationPosition()-pastPosition);
         telemetry.update();
 
     }

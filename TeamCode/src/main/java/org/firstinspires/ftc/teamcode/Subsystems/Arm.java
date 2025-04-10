@@ -29,4 +29,12 @@ public class Arm {
         extend1.setPower(power*extendMultiplier);
         extend2.setPower(power*extendMultiplier);
     }
+
+    public int getExtensionPosition() {
+        return extend2.getCurrentPosition();
+    }
+    public int getRotationPosition() {
+        return rotate2.getCurrentPosition();
+    }
+
 }

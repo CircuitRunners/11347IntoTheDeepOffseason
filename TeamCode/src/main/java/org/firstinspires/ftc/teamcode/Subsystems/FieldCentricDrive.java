@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import static org.firstinspires.ftc.teamcode.constants.Constants.*;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
+
+import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,10 +13,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.UsefulStuff.PinpointOdo;
-
+@Config
 public class FieldCentricDrive extends SubsystemBase {
     private DcMotorEx leftFront, leftBack, rightFront, rightBack;
-    private double powerMultiplier = .8;
+    public static double powerMultiplier = .8;
     PinpointOdo odo;
 
     public FieldCentricDrive(HardwareMap hardwareMap) {
@@ -70,6 +72,10 @@ public class FieldCentricDrive extends SubsystemBase {
 
     public Pose2D getPosition() {
         return odo.getPosition();
+    }
+
+    public void setPowerMultiplier(double power) {
+        powerMultiplier = power;
     }
 
 }
