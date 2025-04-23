@@ -110,6 +110,10 @@ public class TeleOpSpecimen extends CommandOpMode {
         manipulator.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 new SequentialCommandGroup(
                         new InstantCommand(() -> {
+                            //Need to test
+                            diffy.closeClaw();
+                            sleep(250);
+                            //
                             arm.rotateFull();
                             diffy.rotateDiffyUp();
                         })
