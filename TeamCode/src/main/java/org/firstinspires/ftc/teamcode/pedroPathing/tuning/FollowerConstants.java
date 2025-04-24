@@ -1,22 +1,5 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.tuning;
 
-import static org.firstinspires.ftc.teamcode.support.Constants.MASS_IN_KG;
-import static org.firstinspires.ftc.teamcode.support.Constants.X_MOVEMENT;
-import static org.firstinspires.ftc.teamcode.support.Constants.Y_MOVEMENT;
-import static org.firstinspires.ftc.teamcode.support.Constants.centripetalForceScaling;
-import static org.firstinspires.ftc.teamcode.support.Constants.driveD;
-import static org.firstinspires.ftc.teamcode.support.Constants.driveF;
-import static org.firstinspires.ftc.teamcode.support.Constants.driveI;
-import static org.firstinspires.ftc.teamcode.support.Constants.driveP;
-import static org.firstinspires.ftc.teamcode.support.Constants.driveT;
-import static org.firstinspires.ftc.teamcode.support.Constants.translationalD;
-import static org.firstinspires.ftc.teamcode.support.Constants.translationalF;
-import static org.firstinspires.ftc.teamcode.support.Constants.translationalI;
-import static org.firstinspires.ftc.teamcode.support.Constants.translationalP;
-import static org.firstinspires.ftc.teamcode.support.Constants.forwardZeroPowerAccel;
-import static org.firstinspires.ftc.teamcode.support.Constants.lateralZeroPowerAccel;
-import static org.firstinspires.ftc.teamcode.support.Constants.zeroPowerAccelMultiplier;
-
 import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.MathFunctions;
@@ -47,18 +30,18 @@ public class FollowerConstants {
 
     // This section is for setting the actual drive vector for the front left wheel, if the robot
     // is facing a heading of 0 radians with the wheel centered at (0,0)
-    private static double xMovement = X_MOVEMENT; // Default: 81.34056, X_INIT is in Constants (in support)
-    private static double yMovement = Y_MOVEMENT; // Default: 65.43028, Y_INIT is in Constants (in support)
+    private static double xMovement = 68.31575; // Default: 81.34056, X_INIT is in Constants (in support)
+    private static double yMovement = 50.671225; // Default: 65.43028, Y_INIT is in Constants (in support)
     private static double[] convertToPolar = Point.cartesianToPolar(xMovement, -yMovement);
     public static Vector frontLeftVector = MathFunctions.normalizeVector(new Vector(convertToPolar[0], convertToPolar[1]));
 
 
     // Translational PIDF coefficients (don't use integral)
     public static CustomPIDFCoefficients translationalPIDFCoefficients = new CustomPIDFCoefficients(
-            translationalP,
-            translationalI,
-            translationalD,
-            translationalF);
+            .26,
+            0,
+            .02,
+            0);
 
     // Translational Integral
     public static CustomPIDFCoefficients translationalIntegral = new CustomPIDFCoefficients(
@@ -84,11 +67,11 @@ public class FollowerConstants {
 
     // Drive PIDF coefficients
     public static CustomFilteredPIDFCoefficients drivePIDFCoefficients = new CustomFilteredPIDFCoefficients(
-            driveP,
-            driveI,
-            driveD,
-            driveT,
-            driveF);
+            .005,
+            0,
+            .0005,
+            0.6,
+            0);
 
     // Feed forward constant added on to the drive PIDF
     public static double drivePIDFFeedForward = 0.01;
@@ -100,19 +83,19 @@ public class FollowerConstants {
 
 
     // Mass of robot in kilograms
-    public static double mass = MASS_IN_KG; //10.6 KG //10.65942
+    public static double mass = 15.5; //TODO: actually measure if bad
 
     // Centripetal force to power scaling
-    public static double centripetalScaling = centripetalForceScaling;
+    public static double centripetalScaling = .0007;
 
 
     // Acceleration of the drivetrain when power is cut in inches/second^2 (should be negative)
     // if not negative, then the robot thinks that its going to go faster under 0 power
-    public static double forwardZeroPowerAcceleration = forwardZeroPowerAccel; //
+    public static double forwardZeroPowerAcceleration = -55.434400694; //
 
     // Acceleration of the drivetrain when power is cut in inches/second^2 (should be negative)
     // if not negative, then the robot thinks that its going to go faster under 0 power
-    public static double lateralZeroPowerAcceleration = lateralZeroPowerAccel; //
+    public static double lateralZeroPowerAcceleration = -95.2948464538; //
 
     // A multiplier for the zero power acceleration to change the speed the robot decelerates at
     // the end of paths.
@@ -121,7 +104,7 @@ public class FollowerConstants {
     // Decreasing this will cause the deceleration at the end of the Path to be slower, making the
     // robot slower but reducing risk of end-of-path overshoots or localization slippage.
     // This can be set individually for each Path, but this is the default.
-    public static double zeroPowerAccelerationMultiplier = zeroPowerAccelMultiplier;
+    public static double zeroPowerAccelerationMultiplier = 4;
 
 
     // When the robot is at the end of its current Path or PathChain and the velocity goes below
