@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.testCode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -6,12 +6,8 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.ArmWithPID;
-import org.firstinspires.ftc.teamcode.Subsystems.Diffy;
-import org.firstinspires.ftc.teamcode.Subsystems.Drivebase;
-import org.firstinspires.ftc.teamcode.Subsystems.RollerIntake;
+
 @Config
 @TeleOp
 public class ArmTester extends CommandOpMode {

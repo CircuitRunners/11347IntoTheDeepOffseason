@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Diffy;
 import org.firstinspires.ftc.teamcode.Subsystems.FieldCentricDrive;
 
 @TeleOp
-public class TeleOpSpecimen extends CommandOpMode {
+public class TeleOpTwoGamepad extends CommandOpMode {
     public FieldCentricDrive drivebase;
     public ArmWithPID arm;
     //public RollerIntake intake;

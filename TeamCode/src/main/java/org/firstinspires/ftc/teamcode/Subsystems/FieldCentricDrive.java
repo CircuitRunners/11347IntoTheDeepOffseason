@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
-import static org.firstinspires.ftc.teamcode.constants.Constants.*;
+import static org.firstinspires.ftc.teamcode.UsefulStuff.Constants.*;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
