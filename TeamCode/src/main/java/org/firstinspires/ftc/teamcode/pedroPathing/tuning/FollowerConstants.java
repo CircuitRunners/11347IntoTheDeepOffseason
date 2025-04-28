@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.tuning;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.teamcode.UsefulStuff.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.MathFunctions;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Vector;
@@ -30,8 +31,8 @@ public class FollowerConstants {
 
     // This section is for setting the actual drive vector for the front left wheel, if the robot
     // is facing a heading of 0 radians with the wheel centered at (0,0)
-    private static double xMovement = 68.31575; // Default: 81.34056, X_INIT is in Constants (in support)
-    private static double yMovement = 50.671225; // Default: 65.43028, Y_INIT is in Constants (in support)
+    private static double xMovement = Constants.xMovement; // Default: 81.34056, X_INIT is in Constants (in support)
+    private static double yMovement = Constants.yMovement; // Default: 65.43028, Y_INIT is in Constants (in support)
     private static double[] convertToPolar = Point.cartesianToPolar(xMovement, -yMovement);
     public static Vector frontLeftVector = MathFunctions.normalizeVector(new Vector(convertToPolar[0], convertToPolar[1]));
 
@@ -56,9 +57,9 @@ public class FollowerConstants {
 
     // Heading error PIDF coefficients
     public static CustomPIDFCoefficients headingPIDFCoefficients = new CustomPIDFCoefficients(
-            3,
+            2,
             0,
-            0.1,
+            0.15,
             0);
 
     // Feed forward constant added on to the heading PIDF
@@ -67,9 +68,9 @@ public class FollowerConstants {
 
     // Drive PIDF coefficients
     public static CustomFilteredPIDFCoefficients drivePIDFCoefficients = new CustomFilteredPIDFCoefficients(
-            .005,
+            .01,
             0,
-            .0005,
+            .0002,
             0.6,
             0);
 
@@ -83,7 +84,7 @@ public class FollowerConstants {
 
 
     // Mass of robot in kilograms
-    public static double mass = 15.5; //TODO: actually measure if bad
+    public static double mass = Constants.mass;
 
     // Centripetal force to power scaling
     public static double centripetalScaling = .0007;
@@ -91,11 +92,11 @@ public class FollowerConstants {
 
     // Acceleration of the drivetrain when power is cut in inches/second^2 (should be negative)
     // if not negative, then the robot thinks that its going to go faster under 0 power
-    public static double forwardZeroPowerAcceleration = -55.434400694; //
+    public static double forwardZeroPowerAcceleration = Constants.forwardZeroPowerAcceleration; //
 
     // Acceleration of the drivetrain when power is cut in inches/second^2 (should be negative)
     // if not negative, then the robot thinks that its going to go faster under 0 power
-    public static double lateralZeroPowerAcceleration = -95.2948464538; //
+    public static double lateralZeroPowerAcceleration = Constants.lateralZeroPowerAcceleration; //
 
     // A multiplier for the zero power acceleration to change the speed the robot decelerates at
     // the end of paths.
