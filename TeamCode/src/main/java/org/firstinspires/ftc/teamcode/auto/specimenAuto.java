@@ -273,6 +273,7 @@ public class specimenAuto extends OpMode {
 
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPos);
+        //follower.setMaxPower(1);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         buildPaths();
         telemetry.addLine("Initialized");
@@ -286,6 +287,7 @@ public class specimenAuto extends OpMode {
 
     @Override
     public void loop() {
+        follower.update();
         pathUpdate();
         arm.update();
 
