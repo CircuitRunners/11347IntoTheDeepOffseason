@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Diffy {
     private Servo leftRotateServo, rightRotateServo, clawServo;
     private boolean isClawOpen;
-    public static double rightSlow = .68;
+    public static double rightSlow = 1;
     public static double manualSpeed = 0.02;
 
     public enum ServoPosition {

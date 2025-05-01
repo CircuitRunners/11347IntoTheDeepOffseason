@@ -36,8 +36,8 @@ public class ArmWithPID {
     private int extensionTarget = 0;
     public static int maxRotation = 9400;
     public static int minRotation = -100;
-    public static int maxExtension = -58300;
-    public static int minExtension = 3650;
+    public static int maxExtension = -50000;
+    public static int minExtension = 8000;
     public static boolean usef = true;
     public static boolean useRotation = true;
     public static boolean useExtension = true;
