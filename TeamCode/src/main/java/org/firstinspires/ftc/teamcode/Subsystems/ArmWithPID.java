@@ -198,6 +198,6 @@ public class ArmWithPID {
     }
 
     public double getRotationVelocity() {return rotate2.getVelocity();}
-    public boolean isRetracted() {return getExtensionPosition()>=500;}
+    public boolean isRetracted() {return getExtensionPosition()>=minExtension-3000;}
 
 }
